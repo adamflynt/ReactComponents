@@ -25,11 +25,10 @@ class DishDetail extends Component {
     renderComments(dish){
         if (dish != null){
             const comments = dish.comments.map(comment => {
-                const date = new Date(comment.date);
                 return (
                     <li key={comment.id}>
                         <p>{comment.comment}</p>
-                        <p> -- {comment.author}, {date.toDateString()} </p>
+                        <p> -- {comment.author}, {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit' }).format(new Date(Date.parse(comment.date)))} </p>
                     </li>
                 );
             });
