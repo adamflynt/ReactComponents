@@ -43,7 +43,7 @@ const DishDetail = (props) => {
                     <RenderDish dish={props.dish} />
                 </div>
                 <div className="col-12 col-md-5 m-1">
-                    <h4>Comments</h4>
+                    {props.dish != null? <h4>Comments</h4>: null}
                     <RenderComments dish={props.dish} />
                 </div>
             </div>
