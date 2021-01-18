@@ -30,7 +30,7 @@ class CommentForm extends Component {
 
     handleSubmit(values) {
         this.toggleModal();
-        this.props.addComment(this.props.dishId, values.rating, values.author, values.comment);
+        this.props.postComment(this.props.dishId, values.rating, values.author, values.comment);
     }
 
     render() {
@@ -63,7 +63,7 @@ class CommentForm extends Component {
                                         validators={{
                                             required, minLength: minLength(3), maxLength: maxLength(15)
                                         }}
-                                        />
+                                    />
                                     <Errors
                                         className="text-danger"
                                         model=".author"
@@ -73,7 +73,7 @@ class CommentForm extends Component {
                                             minLength: 'Must be greater than 3 characters',
                                             maxLength: 'Must be 15 charaters or less'
                                         }}
-                                        />
+                                    />
                                 </Col>
                             </Row>
                             <Row className="form-group">
@@ -91,7 +91,7 @@ class CommentForm extends Component {
                                         messages={{
                                             required: 'Required'
                                         }}
-                                        />
+                                    />
                                 </Col>
                             </Row>
                             <Button type="submit" value="submit" color="primary">Submit</Button>
@@ -107,7 +107,7 @@ function RenderDish({ dish }) {
     return (
         <div className="col-12 col-md-5 m-1">
             <Card>
-            <CardImg top src={baseUrl + dish.image} alt={dish.name} />
+                <CardImg top src={baseUrl + dish.image} alt={dish.name} />
                 <CardBody>
                     <CardTitle>{dish.name}</CardTitle>
                     <CardText>{dish.description}</CardText>
@@ -117,7 +117,7 @@ function RenderDish({ dish }) {
     );
 }
 
-function RenderComments({ comments, addComment, dishId }) {
+function RenderComments({ comments, postComment, dishId }) {
     if (comments != null)
         return (
             <div className="col-12 col-md-5 m-1">
@@ -132,10 +132,10 @@ function RenderComments({ comments, addComment, dishId }) {
                         );
                     })}
                 </ul>
-                <CommentForm dishId={dishId} addComment={addComment} />
+                <CommentForm dishId={dishId} postComment={postComment} />
             </div>
         );
-        
+
     else
         return (
             <div></div>
@@ -144,7 +144,7 @@ function RenderComments({ comments, addComment, dishId }) {
 
 const DishDetail = (props) => {
     if (props.isLoading) {
-        return(
+        return (
             <div className="container">
                 <div className="row">
                     <Loading />
@@ -153,7 +153,7 @@ const DishDetail = (props) => {
         );
     }
     else if (props.errMess) {
-        return(
+        return (
             <div className="container">
                 <div className="row">
                     <h4>{props.errMess}</h4>
@@ -177,13 +177,13 @@ const DishDetail = (props) => {
                 <div className="row">
                     <RenderDish dish={props.dish} />
                     <RenderComments comments={props.comments}
-                                    addComment={props.addComment}
-                                    dishId={props.dish.id} />
+                        postComment={props.postComment}
+                        dishId={props.dish.id} />
                 </div>
             </div>
         );
-        else
-        return(
+    else
+        return (
             <div>
             </div>
         );
